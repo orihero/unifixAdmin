@@ -1,0 +1,3 @@
+query{
+  loginAdmin(username:"sherlock" password:"sherLOCK")
+}
