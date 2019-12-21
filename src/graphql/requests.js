@@ -145,30 +145,16 @@ query{
 
 //#region MANUFACTURERS
 export let LIST_ADMIN_MANUFACTURER = gql`query wrapper($pageSize:Int! $next:Int!){
-  listMyManufacturer(pageSize:$pageSize,next:$next){
+  listMyAttachedManufacturer(pageSize:$pageSize,next:$next){
     next
     hasMore
-    manufacturers{
+    attachedManufacturers {
       _id
       admin_id
-      legal_name
-      brand_name
-      brand_picture
-      bussiness_type
-      category_id
-      email
-      phone
-      legal_address{
-        region
-        district
-        others
-        location
+      manufacturer_id
+      duc_access {
+        product
       }
-      stir
-      ifut
-      main_bank
-      bank_account
-      mfo
     }
   }
 }`

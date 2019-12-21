@@ -77,6 +77,7 @@ const withDataHOC = (Component, { fetchQuery, path, fields, addQuery, updateQuer
     }, [updateData, addData, removeData, fetchData]);
 
     if (data) {
+        console.warn(data)
         let temp = getObjectProperty(data, path);
         if (temp !== state.items)
             setState({ type: SET, name: 'items', data: temp })

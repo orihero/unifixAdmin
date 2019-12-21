@@ -18,7 +18,7 @@ const PagesProduct = ({ match }) => (
                 render={props => <Manufacturers {...props} />}
             />
             <Route
-                path={`${match.url}/add-product`}
+                path={`${match.url}/add-product/:manufacturer_id`}
                 render={props => <AddProduct {...props} />}
             />
             <Redirect to="/error" />

@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 import { Badge, Card, CustomInput } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
-const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
+const ThumbListView = ({ item: product, isSelect, collect, onCheckItem }) => {
+    console.warn(product)
     return (
         <Colxx xxs="12" key={product.id} className="mb-3">
             <ContextMenuTrigger id="menu_id" data={product.id} collect={collect}>
@@ -35,16 +36,6 @@ const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
                                     {product.discount}
                                 </Badge>
                             </div>
-                        </div>
-                        <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                            <CustomInput
-                                className="item-check mb-0"
-                                type="checkbox"
-                                id={`check_${product.id}`}
-                                checked={isSelect}
-                                onChange={() => { }}
-                                label=""
-                            />
                         </div>
                     </div>
                 </Card>

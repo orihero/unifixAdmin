@@ -15,7 +15,7 @@ import { Colxx } from "../../components/common/CustomBootstrap";
 
 const ManufacturerItem = ({ item: product, isSelect, collect, onClick = () => { }, onRemove = () => { }, history }) => {
     let onPlus = () => {
-        history.push('add-product')
+        history.push(`add-product/${product.manufacturer_id}`)
     }
     return (
         <Colxx sm="6" lg="4" xl="3" className="mb-3" key={product.id}>

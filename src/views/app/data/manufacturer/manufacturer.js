@@ -6,7 +6,7 @@ import ManufacturerItem from '../../../../containers/pages/ManufacturerItem';
 export default withDataHOC(ManufacturerItem,
     {
         fetchQuery: LIST_ADMIN_MANUFACTURER,
-        path: "listMyManufacturer.manufacturers",
+        path: "listMyAttachedManufacturer.attachedManufacturers",
         fields: [
             { name: '_id' },
             { type: 'input', name: 'email', intlMessage: 'email' },

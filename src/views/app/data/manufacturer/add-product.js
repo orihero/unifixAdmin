@@ -1,26 +1,15 @@
-import React, { Fragment, useReducer, useEffect, useState } from "react";
-import {
-    Button,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Input,
-    Label,
-    Card
-} from "reactstrap";
-import Select from "react-select";
-import CustomSelectInput from "../../../../components/common/CustomSelectInput";
-import CustomFileUpload from "../../../../components/common/CustomFileUpload/index";
-import IntlMessages from "../../../../helpers/IntlMessages";
-import { getObjectProperty } from '../../../../utils/object';
-import { useApolloClient, useMutation } from "react-apollo";
-import { LIST_CATEGORIES_NESTED, ADD_PRODUCT, UPDATE_PRODUCT, REMOVE_PRODUCT, IMAGE_UPLOAD } from "../../../../graphql/requests";
+import React, { Fragment, useReducer } from "react";
+import { useMutation } from "react-apollo";
+import { Button, Card, ModalBody, ModalFooter } from "reactstrap";
 import FieldsRenderer from "../../../../components/common/FieldsRenderer";
-import ProductStockItem from '../../../../containers/pages/ProductStockItem'
+import ProductStockItem from '../../../../containers/pages/ProductStockItem';
+import { ADD_PRODUCT, IMAGE_UPLOAD, LIST_CATEGORIES_NESTED, REMOVE_PRODUCT, UPDATE_PRODUCT } from "../../../../graphql/requests";
+import IntlMessages from "../../../../helpers/IntlMessages";
 
 let productOptions = {
     fields: [
         { name: '_id' },
+        { name: 'manufacturer_id' },
         { type: 'select', name: 'categoryPath', intlMessage: "category", query: LIST_CATEGORIES_NESTED, path: 'getAllCategoriesNested', valuePath: "path" },
         { type: 'input', name: 'name', intlMessage: 'name' },
         { type: 'input', name: 'short_desc', intlMessage: 'short_desc' },
@@ -30,17 +19,6 @@ let productOptions = {
         { type: 'file', name: 'thumbnail', intlMessage: 'thumbnail' },
         { type: 'input', name: 'price', intlMessage: 'price', float: true },
         { type: 'input', name: 'discount', intlMessage: 'discount', float: true },
-        // {
-        //     type: 'complex', name: 'stock', children: [
-        //         { type: 'input', name: 'title', intlMessage: 'title' },
-        //         { type: 'input', name: 'value', intlMessage: 'value' },
-        //         { type: 'input', name: 'price', intlMessage: 'price' },
-        //         { type: 'input', name: 'discount', intlMessage: 'discount' },
-        //         { type: 'file', name: 'image', intlMessage: 'image' },
-        //         { type: 'input', name: 'count', intlMessage: 'count' },
-        //         { type: 'input', name: 'sold', intlMessage: 'sold' },
-        //     ]
-        // },
         { type: 'input', name: 'count_measurement', intlMessage: 'count_measurement' },
         { type: 'input', name: 'min_order', intlMessage: 'min_order', float: true },
         { type: 'input', name: 'max_order', intlMessage: 'max_order', float: true },
@@ -61,11 +39,10 @@ let productOptions = {
             children: [
                 { type: 'input', name: 'title', intlMessage: 'title' },
                 { type: 'input', name: 'value', intlMessage: 'value' },
-                { type: 'input', name: 'price', intlMessage: 'price' },
-                { type: 'input', name: 'discount', intlMessage: 'discount' },
+                { type: 'input', name: 'price', intlMessage: 'price', float: true },
+                { type: 'input', name: 'discount', intlMessage: 'discount', int: true },
                 { type: 'file', name: 'image', intlMessage: 'image' },
-                { type: 'input', name: 'count', intlMessage: 'count' },
-                { type: 'input', name: 'sold', intlMessage: 'sold' },
+                { type: 'input', name: 'count', intlMessage: 'count', int: true },
             ],
             component: ProductStockItem
         }
@@ -80,7 +57,8 @@ let productOptions = {
 let SET = "SET"
 let SET_CHILD = "SET_CHILD"
 let UPDATE = "UPDATE"
-const AddNewModal = ({ item = {}, fields = productOptions.fields, uploadQuery = productOptions.uploadQuery, loading, history }) => {
+const AddNewModal = ({ item = {}, fields = productOptions.fields, uploadQuery = productOptions.uploadQuery, loading, history, match }) => {
+    let id = match.params.id;
     let reducer = (state, action) => {
         switch (action.type) {
             case SET_CHILD:
@@ -95,7 +73,7 @@ const AddNewModal = ({ item = {}, fields = productOptions.fields, uploadQuery = 
         }
     }
     // * To store the values of item
-    const [state, setState] = useReducer(reducer, item ? item : {})
+    const [state, setState] = useReducer(reducer, Object.keys(item).keys > 0 ? item : { ...match.params })
     let [add, { loading: addLoading, data: addData, error: addError }] = useMutation(productOptions.addQuery)
     let [update, { loading: updateLoading, data: updateData, error: updateError }] = useMutation(productOptions.updateQuery)
     let [remove, { loading: removeLoading, data: removeData, error: removeError }] = useMutation(productOptions.removeQuery)
@@ -142,7 +120,6 @@ const AddNewModal = ({ item = {}, fields = productOptions.fields, uploadQuery = 
                         fields.forEach(e => {
                             input[e.name] = state[e.name]
                         })
-                        console.warn(input)
                         add({ variables: { input } })
                     }}>
                             <IntlMessages id="pages.submit" />
