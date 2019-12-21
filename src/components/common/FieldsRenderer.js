@@ -142,22 +142,24 @@ let FieldsRenderer = ({ fields, state, setState, uploadQuery = IMAGE_UPLOAD }) =
                                 setValues([el])
                             }
                         }} />]
-                        let focus = options[i] || {};
                         let counter = 0;
                         let selected = values[counter];
-                        console.warn(selected)
                         while (counter < values.length && selected.childs && selected.childs.length > 0) {
                             // !IMPORTANT Do not change the order
-                            focus = focus.childs[selected.index] || {};
-                            tempOptions = focus.childs && focus.childs.map((e, index) => ({ value: e._id, label: e.name, key: e._id, index }))
                             // eslint-disable-next-line no-loop-func
-                            items.push(<ControlledInput key={focus._id} options={tempOptions} onChange={(e) => {
-                                let tempValues = values.slice(0, counter);
-                                tempValues[counter] = e;
-                                console.warn(tempValues)
-                                setValues(tempValues);
+                            items.push(<ControlledInput key={selected._id} options={selected.childs.map(el => ({ value: el._id, label: el.name, key: el._id, ...el }))} onChange={(el) => {
+                                if (el) {
+                                    // ! Removing the child selects if parent is selected
+                                    let vals = values.slice(0, counter);
+                                    setValues([...vals, el])
+                                    let v = el.value;
+                                    if (e.valuePath) {
+                                        v = el[e.valuePath]
+                                    }
+                                    setState({ type: SET, name: e.name, data: v })
+                                }
                             }} />)
-                            counter++;
+                            counter++
                             selected = values[counter];
                         }
                         return items

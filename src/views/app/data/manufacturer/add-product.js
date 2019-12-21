@@ -10,7 +10,7 @@ let productOptions = {
     fields: [
         { name: '_id' },
         { name: 'manufacturer_id' },
-        { type: 'select', name: 'categoryPath', intlMessage: "category", query: LIST_CATEGORIES_NESTED, path: 'getAllCategoriesNested', valuePath: "path" },
+        { type: 'select', name: 'category_path', intlMessage: "category", query: LIST_CATEGORIES_NESTED, path: 'getAllCategoriesNested', valuePath: "path" },
         { type: 'input', name: 'name', intlMessage: 'name' },
         { type: 'input', name: 'short_desc', intlMessage: 'short_desc' },
         { type: 'textarea', name: 'long_desc', intlMessage: 'long_desc' },
