@@ -1,10 +1,10 @@
 import React, { Fragment, useReducer } from "react";
 import { useMutation } from "react-apollo";
 import { Button, Card, ModalBody, ModalFooter } from "reactstrap";
-import FieldsRenderer from "../../../../components/common/FieldsRenderer";
-import ProductStockItem from '../../../../containers/pages/ProductStockItem';
-import { ADD_PRODUCT, IMAGE_UPLOAD, LIST_CATEGORIES_NESTED, REMOVE_PRODUCT, UPDATE_PRODUCT } from "../../../../graphql/requests";
-import IntlMessages from "../../../../helpers/IntlMessages";
+import FieldsRenderer from "../../../components/common/FieldsRenderer";
+import ProductStockItem from '../../../containers/pages/ProductStockItem';
+import { ADD_PRODUCT, IMAGE_UPLOAD, LIST_CATEGORIES_NESTED, REMOVE_PRODUCT, UPDATE_PRODUCT } from "../../../graphql/requests";
+import IntlMessages from "../../../helpers/IntlMessages";
 
 let productOptions = {
     fields: [

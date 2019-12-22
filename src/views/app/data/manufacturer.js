@@ -1,17 +1,16 @@
-import withDataHOC from '../../../../layout/withDataHOC';
-import { IMAGE_UPLOAD, LIST_CATEGORIES_NESTED, LIST_ADMIN_MANUFACTURER, UPDATE_MANUFACTURER, ADD_MANUFACTURER, REMOVE_MANUFACTURER } from '../../../../graphql/requests';
-import ManufacturerItem from '../../../../containers/pages/ManufacturerItem';
+import withDataHOC from '../../../layout/withDataHOC';
+import { IMAGE_UPLOAD, LIST_CATEGORIES_NESTED, LIST_ADMIN_MANUFACTURER, UPDATE_MANUFACTURER, ADD_MANUFACTURER, REMOVE_MANUFACTURER } from '../../../graphql/requests';
+import ManufacturerData from '../../../containers/pages/ManufacturerData';
 
 
-export default withDataHOC(ManufacturerItem,
+export default withDataHOC(ManufacturerData,
     {
         fetchQuery: LIST_ADMIN_MANUFACTURER,
-        path: "listMyAttachedManufacturer.attachedManufacturers",
+        path: "listMyManufacturer.manufacturers",
         fields: [
             { name: '_id' },
             { type: 'input', name: 'email', intlMessage: 'email' },
             { type: 'file', name: 'brand_picture', intlMessage: 'image' },
-            // { type: 'select', name: 'bussiness_type', query: LIST_CATEGORIES_NESTED, path: 'getAllCategoriesNested' },
             { type: 'select', name: 'category_id', query: LIST_CATEGORIES_NESTED, path: 'getAllCategoriesNested' },
             { type: 'input', name: 'phone', intlMessage: 'phone' },
             {

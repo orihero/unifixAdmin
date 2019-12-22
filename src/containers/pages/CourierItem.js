@@ -13,10 +13,9 @@ import classnames from "classnames";
 import { ContextMenuTrigger } from "react-contextmenu";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
-const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemove = () => { }, history }) => {
-    let { manufacturer_id: product } = item;
-    let onPlus = () => {
-        history.push(`add-product/${product._id}`)
+const ImageListView = ({ item: product, isSelect, collect, onClick = () => { }, onRemove, history }) => {
+    let onHistory = () => {
+        history.replace(`couriers/orders`, { courier_id: product._id, matchBy: "" })
     }
     return (
         <Colxx sm="6" lg="4" xl="3" className="mb-3" key={product.id}>
@@ -29,7 +28,7 @@ const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemo
                     <div onClick={event => onClick(product)}>
                         <div className="position-relative">
                             <NavLink to={`?p=${product.id}`} className="w-40 w-sm-100">
-                                <CardImg top alt={product.legal_name} style={{ height: 200, objectFit: 'cover' }} src={product.brand_picture} />
+                                <CardImg top alt={product.legal_name} style={{ height: 200, objectFit: 'cover' }} src={product.profile_picture} />
                             </NavLink>
                             <Badge
                                 color={product.statusColor}
@@ -50,9 +49,8 @@ const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemo
                             </Row>
                         </CardBody>
                     </div>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <div onClick={onPlus} className={"simple-icon-plus m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
-                        <div onClick={onRemove} className={"simple-icon-list m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                        <div onClick={onHistory} className={"simple-icon-list m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
                         <div onClick={onRemove} className={"simple-icon-trash m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
                     </div>
                 </Card>
@@ -62,4 +60,4 @@ const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemo
 };
 
 /* React.memo detail : https://reactjs.org/docs/react-api.html#reactpurecomponent  */
-export default React.memo(ManufacturerItem);
+export default React.memo(ImageListView);

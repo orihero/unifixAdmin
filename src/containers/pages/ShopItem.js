@@ -6,14 +6,17 @@ import {
     CardSubtitle,
     CardImg,
     CardText,
-    Badge
+    Badge,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 import { ContextMenuTrigger } from "react-contextmenu";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
-const ImageListView = ({ item: product, isSelect, collect, onClick = () => { }, onRemove }) => {
+const ImageListView = ({ item: product, isSelect, collect, onClick = () => { }, onRemove, history = {} }) => {
+    let onHistory = () => {
+        history.replace(`shops/orders`, { shop_id: product._id, matchBy: "" })
+    }
     return (
         <Colxx sm="6" lg="4" xl="3" className="mb-3" key={product.id}>
             <ContextMenuTrigger id="menu_id" data={product.id} collect={collect}>
@@ -21,9 +24,8 @@ const ImageListView = ({ item: product, isSelect, collect, onClick = () => { }, 
                     className={classnames({
                         active: isSelect
                     })}
-                    onClick={() => onClick(product)}
                 >
-                    <div>
+                    <div onClick={() => onClick(product)}>
                         <div className="position-relative">
                             <NavLink to={`?p=${product.id}`} className="w-40 w-sm-100">
                                 <CardImg top alt={product.legal_name} style={{ height: 200, objectFit: 'cover' }} src={product.shop_image} />
@@ -47,7 +49,10 @@ const ImageListView = ({ item: product, isSelect, collect, onClick = () => { }, 
                             </Row>
                         </CardBody>
                     </div>
-                    <div onClick={onRemove} className={"simple-icon-trash m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                        <div onClick={onHistory} className={"simple-icon-list m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
+                        <div onClick={onRemove} className={"simple-icon-trash m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
+                    </div>
                 </Card>
             </ContextMenuTrigger>
         </Colxx >

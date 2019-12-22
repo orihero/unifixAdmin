@@ -16,7 +16,7 @@ function collect(props) {
     return { data: props.data };
 };
 
-const withDataHOC = (Component, { fetchQuery, path, }) => ({ match, ...props }) => {
+const withDataHOC = (Component, { fetchQuery, path, }) => ({ match, location, ...props }) => {
     let { params } = match;
     let reducer = (state, action) => {
         switch (action.type) {
@@ -57,7 +57,7 @@ const withDataHOC = (Component, { fetchQuery, path, }) => ({ match, ...props }) 
         isEdit: false,
 
     })
-    const [fetchData, { loading, data, error }] = useLazyQuery(fetchQuery, { variables: { pageSize: state.selectedPageSize, next: 1, groupBy: params.groupBy } });
+    const [fetchData, { loading, data, error }] = useLazyQuery(fetchQuery, { variables: { pageSize: state.selectedPageSize, next: 1, ...location.state } });
 
     useEffect(() => {
         let showError = error;

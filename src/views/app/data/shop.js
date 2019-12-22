@@ -1,9 +1,10 @@
 import withDataHOC from '../../../layout/withDataHOC';
 import ImageListView from '../../../containers/pages/ImageListView';
 import { LIST_ADMIN_SHOPS, UPDATE_SHOP, IMAGE_UPLOAD, ADD_SHOP, REMOVE_SHOP, LIST_CATEGORIES_NESTED } from '../../../graphql/requests';
+import ShopItem from '../../../containers/pages/ShopItem';
 
 
-export default withDataHOC(ImageListView,
+export default withDataHOC(ShopItem,
     {
         fetchQuery: LIST_ADMIN_SHOPS,
         path: "listAdminShop.shops",

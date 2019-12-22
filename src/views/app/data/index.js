@@ -9,23 +9,36 @@ const Couriers = React.lazy(() =>
     import(/* webpackChunkName: "product-data-list" */ './courier')
 );
 const Manufacturers = React.lazy(() =>
-    import(/* webpackChunkName: "product-data-list" */ './manufacturer/index')
+    import(/* webpackChunkName: "product-data-list" */ './manufacturer')
 );
 const Categories = React.lazy(() =>
     import(/* webpackChunkName: "product-data-list" */ './category')
 );
 
-// const AddProduct = React.lazy(() =>
-//     import(/* webpackChunkName: "product-data-list" */ './manufacturer/add-product')
-// );
+const ShopOrders = React.lazy(() =>
+    import(/* webpackChunkName: "product-data-list" */ './shop-order')
+);
+
+const CourierOrders = React.lazy(() =>
+    import(/* webpackChunkName: "product-data-list" */ './courier-order')
+);
+
 
 const PagesProduct = ({ match }) => (
     <Suspense fallback={<div className="loading" />}>
         <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/data-list`} />
+            <Redirect exact from={`${match.url}/`} to={`${match.url}/shops`} />
+            <Route
+                path={`${match.url}/shops/orders`}
+                render={props => <ShopOrders {...props} />}
+            />
             <Route
                 path={`${match.url}/shops`}
                 render={props => <Shops {...props} />}
+            />
+            <Route
+                path={`${match.url}/couriers/orders`}
+                render={props => <CourierOrders {...props} />}
             />
             <Route
                 path={`${match.url}/couriers`}

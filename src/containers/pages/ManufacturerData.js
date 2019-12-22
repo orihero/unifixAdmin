@@ -13,11 +13,7 @@ import classnames from "classnames";
 import { ContextMenuTrigger } from "react-contextmenu";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
-const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemove = () => { }, history }) => {
-    let { manufacturer_id: product } = item;
-    let onPlus = () => {
-        history.push(`add-product/${product._id}`)
-    }
+const ManufacturerItem = ({ item: product, isSelect, collect, onClick = () => { }, onRemove = () => { }, history }) => {
     return (
         <Colxx sm="6" lg="4" xl="3" className="mb-3" key={product.id}>
             <ContextMenuTrigger id="menu_id" data={product.id} collect={collect}>
@@ -49,11 +45,6 @@ const ManufacturerItem = ({ item, isSelect, collect, onClick = () => { }, onRemo
                                 </Colxx>
                             </Row>
                         </CardBody>
-                    </div>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <div onClick={onPlus} className={"simple-icon-plus m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
-                        <div onClick={onRemove} className={"simple-icon-list m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
-                        <div onClick={onRemove} className={"simple-icon-trash m-4"} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', fontSize: 18 }} ></div>
                     </div>
                 </Card>
             </ContextMenuTrigger>

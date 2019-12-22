@@ -48,6 +48,51 @@ mutation wrapper($file:Upload!){
 
 
 //#region !SHOPS
+
+export let GET_SHOP_ORDERS = gql`query wrapper($pageSize:Int! $next:Int!,$shop_id:String!,$matchBy:String!){
+  getOrderBatchByShopId(pageSize:$pageSize,next:$next,shop_id:$shop_id,matchBy:$matchBy){
+    next
+    hasMore
+    orders{
+      _id
+      shop_id
+      package_number
+      courier_id
+      product{
+        product_id
+        name
+        stock{
+          _id
+          stock_id
+          title
+          value
+          price
+          discount
+          image
+          qty
+          count
+          sold
+        }
+        count_measurement
+      }
+      totalQty
+      totalPrice
+      totalDiscount
+      status
+      history{
+        status
+        updated_at
+        updated_by
+        updater_id
+      }
+      created_at
+      updated_at
+      delivered_at
+      finished_at
+    }
+  }
+}`
+
 export let LIST_ADMIN_SHOPS = gql`query wrapper($pageSize:Int! $next:Int!){
   listAdminShop(pageSize:$pageSize,next:$next){
     next
@@ -144,17 +189,67 @@ query{
 
 
 //#region MANUFACTURERS
-export let LIST_ADMIN_MANUFACTURER = gql`query wrapper($pageSize:Int! $next:Int!){
+export let LIST_MY_ADMIN_MANUFACTURER = gql`query wrapper($pageSize:Int! $next:Int!){
   listMyAttachedManufacturer(pageSize:$pageSize,next:$next){
     next
     hasMore
     attachedManufacturers {
       _id
       admin_id
-      manufacturer_id
+      manufacturer_id{
+        _id
+        admin_id
+        legal_name
+        brand_name
+        brand_picture
+        bussiness_type
+        category_id
+        email
+        phone
+        legal_address{
+          region
+          district
+          others
+          location
+        }
+        stir
+        ifut
+        main_bank
+        bank_account
+        mfo
+      }
       duc_access {
         product
       }
+    }
+  }
+}`
+
+export let LIST_ADMIN_MANUFACTURER = gql`query wrapper($pageSize:Int! $next:Int!){
+  listMyManufacturer(pageSize:$pageSize,next:$next){
+    next
+    hasMore
+    manufacturers{
+      _id
+      admin_id
+      legal_name
+      brand_name
+      brand_picture
+      bussiness_type
+      category_id
+      email
+      phone
+      legal_address{
+        region
+        district
+        others
+        location
+      }
+      stir
+      ifut
+      main_bank
+      bank_account
+      mfo
     }
   }
 }`
@@ -228,6 +323,50 @@ mutation wrapper($id:String!){
 
 /* #region  COURIERS */
 
+
+export let GET_COURIER_ORDERS = gql`query wrapper($pageSize:Int! $next:Int!,$courier_id:String!,$matchBy:String!){
+  getOrderBatchByCourierId(pageSize:$pageSize,next:$next,courier_id:$courier_id,matchBy:$matchBy){
+    next
+    hasMore
+    orders{
+      _id
+      shop_id
+      package_number
+      courier_id
+      product{
+        product_id
+        name
+        stock{
+          _id
+          stock_id
+          title
+          value
+          price
+          discount
+          image
+          qty
+          count
+          sold
+        }
+        count_measurement
+      }
+      totalQty
+      totalPrice
+      totalDiscount
+      status
+      history{
+        status
+        updated_at
+        updated_by
+        updater_id
+      }
+      created_at
+      updated_at
+      delivered_at
+      finished_at
+    }
+  }
+}`
 
 export const LIST_ADMIN_COURIERS = gql`
 query wrapper($pageSize:Int! $next:Int!){

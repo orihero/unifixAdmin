@@ -13,6 +13,10 @@ const Data = React.lazy(() =>
 const Orders = React.lazy(() =>
   import(/* webpackChunkName: "pages" */ './orders')
 );
+const Products = React.lazy(() =>
+  import(/* webpackChunkName: "pages" */ './product')
+);
+
 
 
 class App extends Component {
@@ -39,6 +43,10 @@ class App extends Component {
               <Route
                 path={`${match.url}/orders`}
                 render={props => <Orders {...props} />}
+              />
+              <Route
+                path={`${match.url}/products`}
+                render={props => <Products {...props} />}
               />
               <Redirect to="/error" />
             </Switch>

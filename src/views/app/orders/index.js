@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const Orders = React.lazy(() =>
-    import(/* webpackChunkName: "product-data-list" */ './my-shop')
+    import(/* webpackChunkName: "product-data-list" */ './orders')
 );
 
 const PagesProduct = ({ match }) => (
@@ -11,10 +11,6 @@ const PagesProduct = ({ match }) => (
             <Redirect exact from={`${match.url}/`} to={`${match.url}/all-orders`} />
             <Route
                 path={`${match.url}/all-orders`}
-                render={props => <Orders {...props} />}
-            />
-            <Route
-                path={`${match.url}/:groupBy`}
                 render={props => <Orders {...props} />}
             />
             <Redirect to="/error" />

@@ -1,9 +1,9 @@
 import withDataHOC from '../../../layout/withDataHOC';
-import ImageListView from '../../../containers/pages/ImageListView';
+import CourierItem from '../../../containers/pages/CourierItem';
 import { LIST_ADMIN_COURIERS, IMAGE_UPLOAD, UPDATE_COURIER, ADD_COURIER, LIST_CATEGORIES_NESTED, REMOVE_COURIER } from '../../../graphql/requests';
 
 
-export default withDataHOC(ImageListView,
+export default withDataHOC(CourierItem,
     {
         fetchQuery: LIST_ADMIN_COURIERS,
         path: "listAdminCourier.couriers",
