@@ -187,7 +187,6 @@ query{
 //#endregion
 
 
-
 //#region MANUFACTURERS
 export let LIST_MY_ADMIN_MANUFACTURER = gql`query wrapper($pageSize:Int! $next:Int!){
   listMyAttachedManufacturer(pageSize:$pageSize,next:$next){
@@ -318,7 +317,6 @@ mutation wrapper($id:String!){
 `
 
 //#endregion
-
 
 
 /* #region  COURIERS */
@@ -460,15 +458,33 @@ mutation wrapper($input:CourierInput!){
 /* #endregion */
 
 
-//#region MANUFACTURERS
+//#region CATEGORIES
+
 export let LIST_CATEGORIES = gql`query{
   getCategoryList{
     _id
     name
     parent
     path
+    image
   }
 }`
+
+export let CREATE_CATEGORY = gql`
+mutation wrapper($input:CategoryCreateInput!){
+  createCategory(categoryInput:$input){
+    _id
+  }
+}
+`
+
+export let UPDATE_CATEGORY = gql`
+mutation wrapper($input:CategoryUpdateInput!){
+  updateCategory(categoryInput:$input){
+    _id
+  }
+}
+`
 
 //#endregion
 
